@@ -12,38 +12,39 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CycleStationMapPage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Google Maps in Flutter'),
+        ),
+        body: CycleStationMapPage(),
+      ),
     );
   }
 }
 
 class CycleStationMapPage extends StatelessWidget {
   final List<LatLng> cycleStationLocations = [
-    LatLng(37.7749, -122.4194), // Cycle Station 1 (San Francisco)
-    LatLng(37.7749, -122.3897), // Cycle Station 2 (San Francisco)
-    LatLng(37.7599, -122.4148), // Cycle Station 3 (San Francisco)
+    LatLng(12.9716, 79.1582), // VIT Vellore
+    LatLng(12.9711, 79.1594), // Stop 1
+    LatLng(12.9719, 79.1572), // Stop 2
     // Add more cycle station locations as needed
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Cycle Stations Map'),
+    return GoogleMap(
+      initialCameraPosition: CameraPosition(
+        target: LatLng(12.9716, 79.1582), // Initial map position (VIT Vellore)
+        zoom: 14, // Initial zoom level
       ),
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37.7749, -122.4194), // Initial map position (San Francisco)
-          zoom: 12, // Initial zoom level
-        ),
-        markers: cycleStationLocations.map((location) {
-          return Marker(
-            markerId: MarkerId(location.toString()),
-            position: location,
-            infoWindow: InfoWindow(title: 'Cycle Station'),
-          );
-        }).toSet(),
-      ),
+      markers: cycleStationLocations.map((location) {
+        return Marker(
+          markerId: MarkerId(location.toString()),
+          position: location,
+          infoWindow: InfoWindow(title: 'Cycle Station'),
+        );
+      }).toSet(),
     );
   }
 }
+

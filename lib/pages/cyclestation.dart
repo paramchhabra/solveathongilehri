@@ -24,14 +24,18 @@ class CycleStationDetails extends StatelessWidget {
             // Image placed above cycle station details
             Image.asset("lib/images/image.png"),
             SizedBox(height: 20),
-            Text(
-              'Cycle Station Details:',
-              style: TextStyle(fontSize: 20),
+            Center(
+              child: Text(
+                'Cycle Station Details:',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
             SizedBox(height: 10),
-            Text(
-              'Number of available cycles: 60',
-              style: TextStyle(fontSize: 16),
+            Center(
+              child: Text(
+                'Number of available cycles: 60',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
             SizedBox(height: 10),
             SizedBox(height: 20),
