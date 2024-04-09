@@ -21,7 +21,8 @@ class CycleStationDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 20),
-            // Add option to add an image
+            // Image placed above cycle station details
+            Image.asset("lib/images/image.png"),
             SizedBox(height: 20),
             Text(
               'Cycle Station Details:',
@@ -34,7 +35,6 @@ class CycleStationDetails extends StatelessWidget {
             ),
             SizedBox(height: 10),
             SizedBox(height: 20),
-            // Add "Click to Scan QR" button
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/qrcode');
@@ -50,8 +50,6 @@ class CycleStationDetails extends StatelessWidget {
     );
   }
 }
-
-
 
 class UsageHistory extends StatelessWidget {
   @override
