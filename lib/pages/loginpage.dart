@@ -1,87 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:veddle/components/square_tile.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({super.key});
+
+  // text editing controllers
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  // sign user in method
+  void signUserIn() {}
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Row(
+    return Scaffold(
+      backgroundColor: Colors.grey[300],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.teal), // Color of the border
-                    ),
-                    hintText: 'Enter Email',
-                  ),
+              const SizedBox(height: 50),
+
+              // logo
+              const Icon(
+                Icons.lock,
+                size: 100,
+              ),
+
+              const SizedBox(height: 50),
+
+              // welcome back, you've been missed!
+              Text(
+                'Login Via VIT Gmail',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 16,
                 ),
               ),
-              SizedBox(width: 10),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.teal), // Background color of the button
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Text color of the button
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  ),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  // Action to send OTP
-                },
-                child: Text('Send OTP'),
+
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  // google button
+                  SquareTile(imagePath: "lib/images/google.png"),
+                ],
               ),
-            ],
+
+              const SizedBox(height: 50),
+           ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.teal), // Color of the border
-              ),
-              hintText: 'Enter OTP',
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                // Action to sign in
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal), // Background color of the button
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Text color of the button
-                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.symmetric(vertical: 15),
-                ),
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              child: Text('Sign In'),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
