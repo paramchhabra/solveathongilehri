@@ -42,9 +42,9 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   // google button
-                  SquareTile(imagePath: "lib/images/google.png"),
+                  SquareTile(imagePath: "lib/images/google.png",onTap: () => Navigator.pushNamed(context, '/cycle'),),
                 ],
               ),
 
