@@ -67,13 +67,3 @@ class WalletPage extends StatelessWidget {
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(
-    title: 'Wallet Page',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-    ),
-    home: WalletPage(),
-  ));
-}

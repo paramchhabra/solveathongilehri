@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-void main() => runApp(const MaterialApp(home: MyHome()));
 
 class MyHome extends StatelessWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -19,11 +18,12 @@ class MyHome extends StatelessWidget {
   }
 }
 
-int extract_data(String data){
-    String sliced = data.substring(data.length -3);
-    int cyclenum = int.parse(sliced);
-    return cyclenum;
-  }
+int extract_data(String data, context) {
+  String sliced = data.substring(data.length - 3);
+  int cyclenum = int.parse(sliced);
+
+  return cyclenum;
+}
 
 class QRViewExample extends StatefulWidget {
   const QRViewExample({Key? key}) : super(key: key);
@@ -38,28 +38,25 @@ class _QRViewExampleState extends State<QRViewExample> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Expanded(flex: 4, child: _buildQrView(context)),
-        Expanded(
-          flex: 1,
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                if (result != null)
-                  Text(extract_data(result!.code.toString().trim()).toString())
+  void initState() {
+    super.initState();
+    _startNavigation();
+  }
 
-                else
-                  const Text('Scan a code'),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
+  void _startNavigation() {
+    // Example of delaying navigation by 2 seconds after result is obtained
+    // You can adjust the delay as needed
+    Future.delayed(Duration(seconds: 2), () {
+      if (result != null) {
+        int num = extract_data(result!.code.toString(), context);
+        Navigator.pushNamed(context, '/cycle', arguments: {'cyclenumber': num});
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildQrView(context);
   }
 
   Widget _buildQrView(BuildContext context) {
@@ -71,11 +68,12 @@ class _QRViewExampleState extends State<QRViewExample> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
+        borderColor: Colors.red,
+        borderRadius: 10,
+        borderLength: 30,
+        borderWidth: 10,
+        cutOutSize: scanArea,
+      ),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }

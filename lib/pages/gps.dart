@@ -1,48 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: CycleStationMapPage(),
-    );
-  }
-}
+    // Get the screen size
+    final screenSize = MediaQuery.of(context).size;
 
-class CycleStationMapPage extends StatelessWidget {
-  final List<LatLng> cycleStationLocations = [
-    LatLng(37.7749, -122.4194), // Cycle Station 1 (San Francisco)
-    LatLng(37.7749, -122.3897), // Cycle Station 2 (San Francisco)
-    LatLng(37.7599, -122.4148), // Cycle Station 3 (San Francisco)
-    // Add more cycle station locations as needed
-  ];
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cycle Stations Map'),
+        title: Text('Map'),
       ),
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37.7749, -122.4194), // Initial map position (San Francisco)
-          zoom: 12, // Initial zoom level
+      body: Center(
+        child: InteractiveViewer(
+          boundaryMargin: EdgeInsets.all(20.0), // Margin around the map
+          minScale: 0.5, // Minimum zoom scale
+          maxScale: 4.0, // Maximum zoom scale
+          constrained: false, // Allow the map to exceed the screen size
+          child: Image.asset(
+            "lib/images/map.png", // Replace with your map image
+            fit: BoxFit.contain, // Ensure the image fills the screen
+            height: screenSize.height, // Set the height to screen height
+            width: screenSize.width, // Set the width to screen width
+          ),
         ),
-        markers: cycleStationLocations.map((location) {
-          return Marker(
-            markerId: MarkerId(location.toString()),
-            position: location,
-            infoWindow: InfoWindow(title: 'Cycle Station'),
-          );
-        }).toSet(),
       ),
     );
   }
